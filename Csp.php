@@ -35,7 +35,7 @@ class Csp
             static::generateNonce();
         }
 
-        header("Content-Security-Policy: unsafe-inline; script-src 'nonce-" . static::$nonce . "'");
+        header("Content-Security-Policy: script-src 'unsafe-inline' 'nonce-" . static::$nonce . "'");
     }
 
     public static function getNonce()
