@@ -11,6 +11,7 @@
 class Csp
 {
     private static $nonce;
+    private static $browser = [];
 
     private static function generateNonce()
     {
@@ -35,22 +36,42 @@ class Csp
             static::generateNonce();
         }
 
-        $agent = static::getBrowerName();
-
-        switch ($agent) {
-            case 'Safari':
-                // Do nothing because Safari does not support nounce-source
-                break;
-            default:
-                header("Content-Security-Policy: script-src 'nonce-" . static::$nonce . "'");
+        if (static::supportNonceSource()) {
+            header("Content-Security-Policy: script-src 'nonce-" . static::$nonce . "'");
         }
     }
 
-    private static function getBrowerName()
+    private static function getBrowserInfo()
     {
-        $classifier = new \Woothee\Classifier;
-        $r = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
-        return $r['name'];
+        if (static::$browser === []) {
+            $classifier = new \Woothee\Classifier;
+            static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
+        }
+    }
+
+    /**
+     * Does Browser support CSP nonce-source or not?
+     *
+     * @return boolean
+     */
+    private static function supportNonceSource()
+    {
+        static::getBrowserInfo();
+        $name = static::$browser['name'];
+
+        $tmp = explode(".", static::$browser['version']);
+        $version = (int) $tmp[0];
+
+        // At least Firefox 33 supports
+        if ($name === 'Firefox' && $version >= 33) {
+            return true;
+        }
+        // At least Chrome 38 supports
+        if ($name === 'Chrome' && $version >= 38) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function getNonce()

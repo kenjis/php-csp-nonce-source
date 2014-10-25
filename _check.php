@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-header("Content-Security-Policy:script-src 'nonce-sXXD/nluT6AqhuVwL0IJqA=='");
+header("Content-Security-Policy: script-src 'nonce-sXXD/nluT6AqhuVwL0IJqA=='");
 ?>
 <!DOCTYPE html>
 <html lang="en">
