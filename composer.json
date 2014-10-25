@@ -1,0 +1,15 @@
+{
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kenjis",
+            "email": "kenji.uui@gmail.com"
+        }
+    ],
+    "require": {
+        "woothee/woothee": "0.4.*"
+    },
+    "autoload": {
+        "files": ["src/Csp.php"]
+    }
+}

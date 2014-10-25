@@ -35,7 +35,22 @@ class Csp
             static::generateNonce();
         }
 
-        header("Content-Security-Policy: script-src 'unsafe-inline' 'nonce-" . static::$nonce . "'");
+        $agent = static::getBrowerName();
+
+        switch ($agent) {
+            case 'Safari':
+                // Do nothing because Safari does not support nounce-source
+                break;
+            default:
+                header("Content-Security-Policy: script-src 'nonce-" . static::$nonce . "'");
+        }
+    }
+
+    private static function getBrowerName()
+    {
+        $classifier = new \Woothee\Classifier;
+        $r = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
+        return $r['name'];
     }
 
     public static function getNonce()

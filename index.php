@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/Csp.php';
+require __DIR__ . '/vendor/autoload.php';
 Csp::setHeader();
 ?>
 <!DOCTYPE html>
