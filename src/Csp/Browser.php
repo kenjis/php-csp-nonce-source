@@ -10,6 +10,8 @@
 
 namespace Kenjis\Csp;
 
+use Woothee\Classifier;
+
 class Browser
 {
     private static $browser = [];
@@ -17,7 +19,7 @@ class Browser
     private static function getBrowserInfo()
     {
         if (static::$browser === []) {
-            $classifier = new \Woothee\Classifier;
+            $classifier = new Classifier;
             static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
         }
     }
