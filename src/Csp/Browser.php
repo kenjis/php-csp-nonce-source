@@ -10,16 +10,15 @@
 
 namespace Kenjis\Csp;
 
-use Woothee\Classifier;
-
 class Browser
 {
-    private static $browser = [];
+    public static $browserDetectorAdapter = 'WootheeAdapter';
+    public static $browserDetector;
 
     private static function getBrowserInfo()
     {
-        $classifier = new Classifier;
-        static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
+        $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
+        static::$browserDetector = new $className;
     }
 
     /**
@@ -30,10 +29,8 @@ class Browser
     public static function supportNonceSource()
     {
         static::getBrowserInfo();
-        $name = static::$browser['name'];
-
-        $tmp = explode(".", static::$browser['version']);
-        $version = (int) $tmp[0];
+        $name = static::$browserDetector->getName();
+        $version = static::$browserDetector->getVersion();
 
         // At least Firefox 33 supports
         if ($name === 'Firefox' && $version >= 33) {
