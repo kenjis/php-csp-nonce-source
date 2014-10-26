@@ -8,7 +8,7 @@ class CspTest extends TestCase
 {
     public function testGetNonce()
     {
-        test::func('Kenjis\Csp', 'openssl_random_pseudo_bytes', '1234567890123456');
+        test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
 
         $test = CSP::getNonce();
         $expected = 'MTIzNDU2Nzg5MDEyMzQ1Ng==';
@@ -22,8 +22,8 @@ class CspTest extends TestCase
     {
         $_SERVER['HTTP_USER_AGENT'] = $browser;
 
-        test::func('Kenjis\Csp', 'openssl_random_pseudo_bytes', '1234567890123456');
-        $func = test::func('Kenjis\Csp', 'header', '');
+        test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
+        $func = test::func(__NAMESPACE__, 'header', '');
 
         $test = CSP::setHeader();
 

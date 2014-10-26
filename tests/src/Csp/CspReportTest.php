@@ -13,9 +13,9 @@ class CspReportTest extends TestCase
 
     public function testProcess()
     {
-        test::func('Kenjis\Csp', 'getallheaders', []);
-        test::func('Kenjis\Csp', 'date', '2014-10-26 05:55:43');
-        $func = test::func('Kenjis\Csp', 'file_put_contents', true);
+        test::func(__NAMESPACE__, 'getallheaders', []);
+        test::func(__NAMESPACE__, 'date', '2014-10-26 05:55:43');
+        $func = test::func(__NAMESPACE__, 'file_put_contents', true);
 
         $post = <<<'EOD'
 {"csp-report":{"document-uri":"http://localhost:8000/","referrer":"","violated-directive":"script-src 'nonce-Q6m8petbOPneeedes1gaMQ=='","original-policy":"script-src 'nonce-Q6m8petbOPneeedes1gaMQ=='; report-uri /csp-report.php","blocked-uri":"","status-code":200}}
