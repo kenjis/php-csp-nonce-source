@@ -1,6 +1,6 @@
 {
     "name": "kenjis/csp",
-    "description": "Implementaion of Content Security Policy (CSP) nonce-source",
+    "description": "Implementation of Content Security Policy (CSP) nonce-source",
     "license": "MIT",
     "authors": [
         {
