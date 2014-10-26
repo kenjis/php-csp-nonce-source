@@ -12,13 +12,18 @@ namespace Kenjis\Csp;
 
 class Csp
 {
+    public static $report_uri = '/csp-report.php';
+
     private static $nonce;
-    private static $report_uri = '/csp-report.php';
 
     private static function generateNonce()
     {
-        $length = 16;
+        if (! Browser::supportNonceSource()) {
+            static::$nonce = 'dummy';
+            return;
+        }
 
+        $length = 16;
         $bytes = '';
         if (function_exists('openssl_random_pseudo_bytes')) {
             $usable = true;
@@ -61,5 +66,10 @@ class Csp
         }
 
         return static::$nonce;
+    }
+
+    public static function resetNonce()
+    {
+        static::$nonce = null;
     }
 }

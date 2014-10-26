@@ -6,12 +6,27 @@ use AspectMock\Test as test;
 
 class CspTest extends TestCase
 {
-    public function testGetNonce()
+    public function setUp()
+    {
+        CSP::resetNonce();
+    }
+
+    public function testGetNonce_supportedBrowser()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
+        test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => true]);
 
         $test = CSP::getNonce();
         $expected = 'MTIzNDU2Nzg5MDEyMzQ1Ng==';
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testGetNonce_unsupportedBrowser()
+    {
+        test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => false]);
+
+        $test = CSP::getNonce();
+        $expected = 'dummy';
         $this->assertEquals($expected, $test);
     }
 
