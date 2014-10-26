@@ -33,8 +33,8 @@ class Browser
         $name = static::$browserDetector->getName();
         $version = static::$browserDetector->getVersion();
 
-        // At least Firefox 33 supports
-        if ($name === 'Firefox' && $version >= 33) {
+        // https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
+        if ($name === 'Firefox' && $version >= 31) {
             return true;
         }
         // At least Chrome 38 supports
