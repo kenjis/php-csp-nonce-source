@@ -16,7 +16,7 @@ class Browser
 
     private static $browserDetector;
 
-    private static function generateBrowserDetector()
+    private static function createBrowserDetector()
     {
         $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
         static::$browserDetector = new $className;
@@ -29,7 +29,7 @@ class Browser
      */
     public static function supportNonceSource()
     {
-        static::generateBrowserDetector();
+        static::createBrowserDetector();
         $name = static::$browserDetector->getName();
         $version = static::$browserDetector->getVersion();
 
