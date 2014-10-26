@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8565ee91b9725fc2566992feaced20b3",
+    "hash": "376c3306ad6194e344349b9c6e60c498",
     "packages": [
         {
             "name": "woothee/woothee",

@@ -1,8 +1,10 @@
 {
+    "name": "kenjis/csp",
+    "description": "Implementaion of Content Security Policy (CSP) nonce-source",
     "license": "MIT",
     "authors": [
         {
-            "name": "kenjis",
+            "name": "Kenji Suzuki",
             "email": "kenji.uui@gmail.com"
         }
     ],
