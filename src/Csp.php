@@ -13,6 +13,8 @@ class Csp
     private static $nonce;
     private static $browser = [];
 
+    private static $report_uri = '/csp-report.php';
+
     private static function generateNonce()
     {
         $length = 16;
@@ -36,8 +38,18 @@ class Csp
             static::generateNonce();
         }
 
+        $header = '';
+
         if (static::supportNonceSource()) {
-            header("Content-Security-Policy: script-src 'nonce-" . static::$nonce . "'");
+            $header = "script-src 'nonce-" . static::$nonce . "'";
+
+            if (static::$report_uri) {
+                $header .= '; report-uri ' . static::$report_uri;
+            }
+        }
+
+        if ($header) {
+            header('Content-Security-Policy: ' . $header);
         }
     }
 

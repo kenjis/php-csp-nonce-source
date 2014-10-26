@@ -10,6 +10,6 @@
         "woothee/woothee": "0.4.*"
     },
     "autoload": {
-        "files": ["src/Csp.php"]
+        "classmap": ["src/"]
     }
 }
