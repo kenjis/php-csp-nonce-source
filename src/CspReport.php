@@ -7,7 +7,11 @@ class CspReport
         $report = json_decode($post);
 
         if ($report) {
-            $report->{'user-agent'} = $_SERVER['HTTP_USER_AGENT'];
+            $report->date = date("Y-m-d H:i:s");
+
+            foreach (getallheaders() as $name => $value) {
+                $report->headers[$name] = $value;
+            }
 
             $data = json_encode(
                 $report,
