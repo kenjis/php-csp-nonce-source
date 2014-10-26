@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 header("Content-Security-Policy: script-src 'nonce-sXXD/nluT6AqhuVwL0IJqA=='");
 ?>
 <!DOCTYPE html>
@@ -24,5 +24,6 @@ $r = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
 var_dump($r);
 ?>
 
+<a href="./">Back</a>
 </body>
 </html>

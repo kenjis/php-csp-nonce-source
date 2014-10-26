@@ -17,5 +17,6 @@ header("Content-Security-Policy: script-src 'unsafe-inline' 'nonce-sXXD/nluT6Aqh
     alert('This does not work!');
 </script>
 
+<a href="./">Back</a>
 </body>
 </html>
