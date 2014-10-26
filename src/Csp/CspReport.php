@@ -12,6 +12,13 @@ namespace Kenjis\Csp;
 
 class CspReport
 {
+    private $logfile;
+
+    public function __construct($logfile)
+    {
+        $this->logfile = $logfile;
+    }
+
     public function process($post)
     {
         $report = json_decode($post);
@@ -34,7 +41,6 @@ class CspReport
 
     private function log($data)
     {
-        $logfile = dirname(__DIR__) . '/csp-report.log';
-        file_put_contents($logfile, $data . "\n", LOCK_EX | FILE_APPEND);
+        file_put_contents($this->logfile, $data . "\n", LOCK_EX | FILE_APPEND);
     }
 }

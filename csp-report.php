@@ -1,5 +1,8 @@
 <?php
+
 require __DIR__ . '/bootstrap.php';
+
+use Kenjis\Csp\CspReport;
 
 http_response_code(204);
 
@@ -8,5 +11,6 @@ if (! $post) {
     exit;
 }
 
-$report = new CspReport();
+$logfile = __DIR__ . '/csp-report.log';
+$report = new CspReport($logfile);
 $report->process($post);

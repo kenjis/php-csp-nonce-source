@@ -13,8 +13,6 @@ namespace Kenjis\Csp;
 class Csp
 {
     private static $nonce;
-    private static $browser = [];
-
     private static $report_uri = '/csp-report.php';
 
     private static function generateNonce()
@@ -42,7 +40,7 @@ class Csp
 
         $header = '';
 
-        if (static::supportNonceSource()) {
+        if (Browser::supportNonceSource()) {
             $header = "script-src 'nonce-" . static::$nonce . "'";
 
             if (static::$report_uri) {
@@ -53,39 +51,6 @@ class Csp
         if ($header) {
             header('Content-Security-Policy: ' . $header);
         }
-    }
-
-    private static function getBrowserInfo()
-    {
-        if (static::$browser === []) {
-            $classifier = new \Woothee\Classifier;
-            static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
-        }
-    }
-
-    /**
-     * Does Browser support CSP nonce-source or not?
-     *
-     * @return boolean
-     */
-    private static function supportNonceSource()
-    {
-        static::getBrowserInfo();
-        $name = static::$browser['name'];
-
-        $tmp = explode(".", static::$browser['version']);
-        $version = (int) $tmp[0];
-
-        // At least Firefox 33 supports
-        if ($name === 'Firefox' && $version >= 33) {
-            return true;
-        }
-        // At least Chrome 38 supports
-        if ($name === 'Chrome' && $version >= 38) {
-            return true;
-        }
-
-        return false;
     }
 
     public static function getNonce()
