@@ -9,6 +9,7 @@
         }
     ],
     "require": {
+        "php": ">=5.4.0",
         "woothee/woothee": "0.4.*"
     },
     "require-dev": {
