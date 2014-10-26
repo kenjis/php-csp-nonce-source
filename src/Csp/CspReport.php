@@ -8,6 +8,8 @@
  * @link       https://github.com/kenjis/php-csp-nonce-source
  */
 
+namespace Kenjis\Csp;
+
 class CspReport
 {
     public function process($post)

@@ -10,6 +10,8 @@
         "woothee/woothee": "0.4.*"
     },
     "autoload": {
-        "classmap": ["src/"]
+        "psr-4": {
+            "Kenjis\\Csp\\": "src/Csp/"
+        }
     }
 }
