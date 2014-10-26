@@ -13,9 +13,10 @@ namespace Kenjis\Csp;
 class Browser
 {
     public static $browserDetectorAdapter = 'WootheeAdapter';
-    public static $browserDetector;
 
-    private static function getBrowserInfo()
+    private static $browserDetector;
+
+    private static function generateBrowserDetector()
     {
         $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
         static::$browserDetector = new $className;
@@ -28,7 +29,7 @@ class Browser
      */
     public static function supportNonceSource()
     {
-        static::getBrowserInfo();
+        static::generateBrowserDetector();
         $name = static::$browserDetector->getName();
         $version = static::$browserDetector->getVersion();
 
