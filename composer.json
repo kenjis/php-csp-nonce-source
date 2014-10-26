@@ -11,6 +11,9 @@
     "require": {
         "woothee/woothee": "0.4.*"
     },
+    "require-dev": {
+        "codeception/aspect-mock": "0.5.*"
+    },
     "autoload": {
         "psr-4": {
             "Kenjis\\Csp\\": "src/Csp/"

@@ -18,10 +18,8 @@ class Browser
 
     private static function getBrowserInfo()
     {
-        if (static::$browser === []) {
-            $classifier = new Classifier;
-            static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
-        }
+        $classifier = new Classifier;
+        static::$browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
     }
 
     /**

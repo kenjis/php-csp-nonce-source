@@ -21,6 +21,7 @@ class Csp
 
         $bytes = '';
         if (function_exists('openssl_random_pseudo_bytes')) {
+            $usable = true;
             $bytes = openssl_random_pseudo_bytes($length, $usable);
             if ($usable === false) {
                 // weak

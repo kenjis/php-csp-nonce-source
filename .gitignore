@@ -1,3 +1,5 @@
 nbproject/
 /vendor/
 *.log
+tests/cache/
+tests/coverage/
