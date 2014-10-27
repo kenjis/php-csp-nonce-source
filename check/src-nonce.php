@@ -19,6 +19,8 @@ header("Content-Security-Policy: script-src 'nonce-sXXD/nluT6AqhuVwL0IJqA=='");
 </script>
 
 <?php
+var_dump($_SERVER['HTTP_USER_AGENT']);
+
 $classifier = new \Woothee\Classifier;
 $r = $classifier->parse($_SERVER['HTTP_USER_AGENT']);
 var_dump($r);
