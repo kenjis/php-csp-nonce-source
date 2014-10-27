@@ -13,7 +13,7 @@ class CspReportTest extends TestCase
 
     public function testProcess()
     {
-        test::func(__NAMESPACE__, 'getallheaders', []);
+        test::func(__NAMESPACE__, 'getallheaders', ["Host" => "localhost:8000"]);
         test::func(__NAMESPACE__, 'date', '2014-10-26 05:55:43');
         $func = test::func(__NAMESPACE__, 'file_put_contents', true);
 
@@ -33,7 +33,10 @@ EOD;
         "blocked-uri": "",
         "status-code": 200
     },
-    "date": "2014-10-26 05:55:43"
+    "date": "2014-10-26 05:55:43",
+    "headers": {
+        "Host": "localhost:8000"
+    }
 }
 EOD;
         $func->verifyInvoked(

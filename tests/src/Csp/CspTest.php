@@ -54,4 +54,25 @@ class CspTest extends TestCase
             ['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36'],
         ];
     }
+
+    /**
+     * @dataProvider provideUnsupportedBrowser
+     */
+    public function testSetHeader_unsupportedBrowser($browser)
+    {
+        $_SERVER['HTTP_USER_AGENT'] = $browser;
+
+        $func = test::func(__NAMESPACE__, 'header', '');
+
+        $test = CSP::setHeader();
+
+        $func->verifyNeverInvoked();
+    }
+
+    public function provideUnsupportedBrowser()
+    {
+        return [
+            ['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25'],
+        ];
+    }
 }
