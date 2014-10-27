@@ -1,14 +1,22 @@
-# PHP Sample of CSP nonce-source
+# CSP nonce-source for PHP
 
 [![Build Status](https://travis-ci.org/kenjis/php-csp-nonce-source.svg?branch=master)](https://travis-ci.org/kenjis/php-csp-nonce-source)
 [![Code Coverage](https://scrutinizer-ci.com/g/kenjis/php-csp-nonce-source/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/kenjis/php-csp-nonce-source/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kenjis/php-csp-nonce-source/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kenjis/php-csp-nonce-source/?branch=master)
 
-A PHP Sample of CSP (Content Security Policy) nonce-source.
+CSP (Content Security Policy) nonce-source library for PHP.
 
 ## Requirement
 
 * PHP 5.4 or lator
+
+## Installation
+
+~~~
+$ git clone https://github.com/kenjis/php-csp-nonce-source.git
+$ cd php-csp-nonce-source
+$ composer install
+~~~
 
 ## How to use
 
