@@ -16,6 +16,12 @@ class Browser
 
     protected static $browserDetector;
 
+    protected static $supportedBrowserList = [
+        // name => version
+        'Firefox' => 31,    // https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
+        'Chrome'  => 37,    // At least Chrome 37 supports CSP nonce-source
+    ];
+
     protected static function createBrowserDetector()
     {
         $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
@@ -33,13 +39,10 @@ class Browser
         $name = static::$browserDetector->getName();
         $version = static::$browserDetector->getVersion();
 
-        // https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
-        if ($name === 'Firefox' && $version >= 31) {
-            return true;
-        }
-        // At least Chrome 37 supports
-        if ($name === 'Chrome' && $version >= 37) {
-            return true;
+        if (isset(static::$supportedBrowserList[$name])) {
+            if ($version >= static::$supportedBrowserList[$name]) {
+                return true;
+            }
         }
 
         return false;
