@@ -37,8 +37,8 @@ class Browser
         if ($name === 'Firefox' && $version >= 31) {
             return true;
         }
-        // At least Chrome 38 supports
-        if ($name === 'Chrome' && $version >= 38) {
+        // At least Chrome 37 supports
+        if ($name === 'Chrome' && $version >= 37) {
             return true;
         }
 
