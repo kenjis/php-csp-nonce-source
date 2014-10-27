@@ -22,11 +22,17 @@ class WootheeAdapter
         $this->browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->browser['name'];
     }
 
+    /**
+     * @return int
+     */
     public function getVersion()
     {
         $tmp = explode('.', $this->browser['version']);

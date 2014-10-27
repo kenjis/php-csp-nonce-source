@@ -59,6 +59,9 @@ class Csp
         }
     }
 
+    /**
+     * @return string
+     */
     public static function getNonce()
     {
         if (static::$nonce === null) {
