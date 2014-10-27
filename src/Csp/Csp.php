@@ -14,9 +14,9 @@ class Csp
 {
     public static $report_uri = '/csp-report.php';
 
-    private static $nonce;
+    protected static $nonce;
 
-    private static function generateNonce()
+    protected static function generateNonce()
     {
         if (! Browser::supportNonceSource()) {
             static::$nonce = 'dummy';

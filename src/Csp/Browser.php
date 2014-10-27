@@ -14,9 +14,9 @@ class Browser
 {
     public static $browserDetectorAdapter = 'WootheeAdapter';
 
-    private static $browserDetector;
+    protected static $browserDetector;
 
-    private static function createBrowserDetector()
+    protected static function createBrowserDetector()
     {
         $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
         static::$browserDetector = new $className;

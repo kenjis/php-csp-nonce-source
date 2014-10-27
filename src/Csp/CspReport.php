@@ -39,6 +39,9 @@ class CspReport
         }
     }
 
+    /**
+     * @param string $data
+     */
     private function log($data)
     {
         file_put_contents($this->logfile, $data . "\n", LOCK_EX | FILE_APPEND);
