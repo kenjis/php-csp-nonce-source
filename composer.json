@@ -1,6 +1,7 @@
 {
     "name": "kenjis/csp",
     "description": "Implementation of Content Security Policy (CSP) nonce-source",
+    "keywords": ["content security policy", "csp", "nonce-source", "xss", "security"],
     "license": "MIT",
     "authors": [
         {
