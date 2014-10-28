@@ -10,80 +10,83 @@
 
 namespace Kenjis\Csp;
 
+/**
+ * CSP
+ *
+ * See http://www.w3.org/TR/CSP2/
+ */
 class Csp
 {
-    public $report_uri = '/csp-report.php';
-
     /**
-     * @var \Kenjis\Csp\Browser
-     */
-    private $browser;
-
-    /**
-     * @var string
+     *
+     * @var \Kenjis\CspNonce
      */
     private $nonce;
 
-    /**
-     * @param \Kenjis\Csp\Browser $browser
-     */
-    public function __construct(Browser $browser)
+    private $policies = [];
+
+    private $reportOnly = false;
+
+    public function __construct(Nonce $nonce)
     {
-        $this->browser = $browser;
+        $this->nonce = $nonce;
     }
 
-    private function generateNonce()
+    /**
+     * @param string $directive
+     * @param string $value
+     */
+    public function addPolicy($directive, $value)
     {
-        if (! $this->browser->supportNonceSource()) {
-            $this->nonce = 'dummy';
-            return;
+        // with quotation
+        $keywords = ['self', 'unsafe-inline', 'unsafe-eval', 'unsafe-redirect'];
+        if (in_array($value, $keywords)) {
+            $value = "'" . $value . "'";
         }
 
-        $length = 16;
-        $bytes = '';
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            $usable = true;
-            $bytes = openssl_random_pseudo_bytes($length, $usable);
-            if ($usable === false) {
-                // weak
-            }
-        } else {
-            throw new Exception('Can\'t use openssl_random_pseudo_bytes');
-        }
+        $this->policies[$directive][] = $value;
+        $tmp = array_unique($this->policies[$directive]);
+        $this->policies[$directive] = $tmp;
+    }
 
-        $this->nonce = base64_encode($bytes);
+    public function getNonce()
+    {
+        return $this->nonce->getNonce();
+    }
+
+    public function setNonceSource()
+    {
+        $nonce = $this->nonce->getNonce();
+        $value = "'" . 'nonce-' . $nonce . "'";
+        $this->addPolicy('script-src', $value);
+    }
+
+    public function setReportOnly()
+    {
+        $this->reportOnly = true;
     }
 
     public function setHeader()
     {
-        if ($this->nonce === null) {
-            $this->generateNonce();
+        if (! $this->reportOnly) {
+            $fieldName = 'Content-Security-Policy';
+        } else {
+            $fieldName = 'Content-Security-Policy-Report-Only';
         }
 
-        $header = '';
-
-        if ($this->browser->supportNonceSource()) {
-            $header = "script-src 'nonce-" . $this->nonce . "'";
-
-            if ($this->report_uri) {
-                $header .= '; report-uri ' . $this->report_uri;
-            }
-        }
-
-        if ($header) {
-            header('Content-Security-Policy: ' . $header);
+        // Send CSP header only to browsers which supports nonce-source
+        if ($this->nonce->getNonce() !== Nonce::UNSUPPORTED_BROWSER_NONCE) {
+            header($fieldName . ': ' . $this);
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getNonce()
+    public function __toString()
     {
-        if ($this->nonce === null) {
-            $this->generateNonce();
+        $string = '';
+        foreach ($this->policies as $directive => $values) {
+            $string .= $directive . ' ' . implode(' ', $values) . '; ';
         }
 
-        return $this->nonce;
+        return rtrim($string, '; ');
     }
 }

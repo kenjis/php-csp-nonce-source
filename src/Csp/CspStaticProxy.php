@@ -12,8 +12,7 @@ namespace Kenjis\Csp;
 
 class CspStaticProxy
 {
-    public static $browserDetectorAdapter = 'Woothee';
-    public static $report_uri = '/csp-report.php';
+    public static $browserDetector = 'Woothee';
 
     /**
      * @var \Kenjis\Csp\Csp
@@ -26,17 +25,29 @@ class CspStaticProxy
             return;
         }
 
-        $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
+        $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetector;
         $browserDetector = new $className($_SERVER['HTTP_USER_AGENT']);
         $browser = new Browser($browserDetector);
-        static::$csp = new Csp($browser);
-        static::$csp->report_uri = static::$report_uri;
+        $nonce = new Nonce($browser);
+        static::$csp = new Csp($nonce);
+        static::$csp->setNonceSource();
+        static::$csp->addPolicy('report-uri', '/csp-report.php');
     }
 
     public static function setHeader()
     {
         static::createCsp();
-        return static::$csp->setHeader();
+        static::$csp->setHeader();
+    }
+
+    /**
+     * @param string $directive
+     * @param string $value
+     */
+    public static function addPolicy($directive, $value)
+    {
+        static::createCsp();
+        static::$csp->addPolicy($directive, $value);
     }
 
     /**
