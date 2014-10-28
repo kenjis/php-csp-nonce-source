@@ -6,6 +6,12 @@
 
 CSP (Content Security Policy) nonce-source library for PHP.
 
+## What is CSP nonce-source?
+
+It is one of CSP 2 features to prevent XSS.
+
+If you don't know, please see [CSP for the web we have | Mozilla Security Blog](https://blog.mozilla.org/security/2014/10/04/csp-for-the-web-we-have/).
+
 ## Requirement
 
 * PHP 5.4 or lator
@@ -81,3 +87,4 @@ MIT License. See LICENSE.md.
 
 * Content Security Policy Level 2 http://www.w3.org/TR/2014/WD-CSP2-20140703/
 * Firefox Notes Version 31.0 https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
+* CSP for the web we have | Mozilla Security Blog https://blog.mozilla.org/security/2014/10/04/csp-for-the-web-we-have/
