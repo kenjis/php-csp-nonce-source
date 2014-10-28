@@ -38,7 +38,7 @@ class Csp
     public function addPolicy($directive, $value)
     {
         // with quotation
-        $keywords = ['self', 'unsafe-inline', 'unsafe-eval', 'unsafe-redirect'];
+        $keywords = ['self', 'unsafe-inline', 'unsafe-eval', 'unsafe-redirect', 'none'];
         if (in_array($value, $keywords)) {
             $value = "'" . $value . "'";
         }
