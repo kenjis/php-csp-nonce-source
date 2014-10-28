@@ -14,7 +14,14 @@ class Csp
 {
     public $report_uri = '/csp-report.php';
 
-    private $brower;
+    /**
+     * @var \Kenjis\Csp\Browser
+     */
+    private $browser;
+
+    /**
+     * @var string
+     */
     private $nonce;
 
     /**
