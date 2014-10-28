@@ -2,6 +2,7 @@
 
 require __DIR__ . '/bootstrap.php';
 
+use Kenjis\Csp\Logger\File;
 use Kenjis\Csp\CspReport;
 
 http_response_code(204);
@@ -12,5 +13,6 @@ if (! $post) {
 }
 
 $logfile = __DIR__ . '/csp-report.log';
-$report = new CspReport($logfile);
+$logger = new File($logfile);
+$report = new CspReport($logger);
 $report->process($post);

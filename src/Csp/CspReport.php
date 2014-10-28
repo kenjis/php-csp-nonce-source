@@ -12,11 +12,11 @@ namespace Kenjis\Csp;
 
 class CspReport
 {
-    private $logfile;
+    private $logger;
 
-    public function __construct($logfile)
+    public function __construct($logger)
     {
-        $this->logfile = $logfile;
+        $this->logger = $logger;
     }
 
     public function process($post)
@@ -35,15 +35,7 @@ class CspReport
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
             );
 
-            $this->log($data);
+            $this->logger->log('info', $data);
         }
-    }
-
-    /**
-     * @param string $data
-     */
-    private function log($data)
-    {
-        file_put_contents($this->logfile, $data . "\n", LOCK_EX | FILE_APPEND);
     }
 }
