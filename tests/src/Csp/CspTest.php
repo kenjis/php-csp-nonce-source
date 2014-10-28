@@ -16,15 +16,73 @@ class CspTest extends TestCase
         $this->csp->addPolicy('report-uri', '/csp-report.php');
     }
 
-    public function testSetHeader_emptyHeader()
+    public function createCspWithSupportedBrowser()
     {
-        $func = test::func(__NAMESPACE__, 'header', '');
-
         $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0';
         $browserDetector = new Browser\Woothee($userAgent);
         $browser = new Browser($browserDetector);
         $nonce = new Nonce($browser);
         $this->csp = new Csp($nonce);
+    }
+
+    public function testAddPolicy_oneDirective()
+    {
+        $this->createCspWithSupportedBrowser();
+        $this->csp->addPolicy('connect-src', 'example.com');
+
+        $test = (string) $this->csp;
+        $expected = "connect-src example.com";
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testAddPolicy_keywordsWithQuotation()
+    {
+        $this->createCspWithSupportedBrowser();
+        $this->csp->addPolicy('default-src', 'self');
+
+        $test = (string) $this->csp;
+        $expected = "default-src 'self'";
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testAddPolicy_twoDirectives()
+    {
+        $this->createCspWithSupportedBrowser();
+        $this->csp->addPolicy('default-src', 'self');
+        $this->csp->addPolicy('img-src', '*');
+
+        $test = (string) $this->csp;
+        $expected = "default-src 'self'; img-src *";
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testAddPolicy_twoValues()
+    {
+        $this->createCspWithSupportedBrowser();
+        $this->csp->addPolicy('default-src', 'https:');
+        $this->csp->addPolicy('default-src', 'unsafe-inline');
+
+        $test = (string) $this->csp;
+        $expected = "default-src https: 'unsafe-inline'";
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testAddPolicy_duplicatedValues()
+    {
+        $this->createCspWithSupportedBrowser();
+        $this->csp->addPolicy('default-src', 'self');
+        $this->csp->addPolicy('default-src', 'self');
+
+        $test = (string) $this->csp;
+        $expected = "default-src 'self'";
+        $this->assertEquals($expected, $test);
+    }
+
+    public function testSetHeader_emptyHeader()
+    {
+        $func = test::func(__NAMESPACE__, 'header', '');
+
+        $this->createCspWithSupportedBrowser();
 
         $test = $this->csp->setHeader();
         $func->verifyNeverInvoked();
@@ -43,20 +101,6 @@ class CspTest extends TestCase
         $func->verifyInvoked(
             ["Content-Security-Policy-Report-Only: script-src 'nonce-MTIzNDU2Nzg5MDEyMzQ1Ng=='; report-uri /csp-report.php"]
         );
-    }
-
-    public function testAddPolicy_keywordsWithQuotation()
-    {
-        $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0';
-        $browserDetector = new Browser\Woothee($userAgent);
-        $browser = new Browser($browserDetector);
-        $nonce = new Nonce($browser);
-        $this->csp = new Csp($nonce);
-        $this->csp->addPolicy('default-src', 'self');
-
-        $test = (string) $this->csp;
-        $expected = "default-src 'self'";
-        $this->assertEquals($expected, $test);
     }
 
     /**
