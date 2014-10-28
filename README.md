@@ -45,6 +45,16 @@ Csp::sendHeader();
 </html>
 ~~~
 
+You can test it with PHP built-in web server.
+
+~~~
+$ php -S localhost:8000
+~~~
+
+And browse <http://localhost:8000/>.
+
+You can see CSP violation report in `csp-report.log` file.
+
 ### Add other polices
 
 ~~~php
@@ -61,7 +71,7 @@ Csp::setReportOnly();
 Csp::sendHeader();
 ~~~
 
-See `csp-report.log` file.
+You can see CSP violation report in `csp-report.log` file.
 
 ## License
 
