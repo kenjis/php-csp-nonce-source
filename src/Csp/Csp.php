@@ -18,7 +18,6 @@ namespace Kenjis\Csp;
 class Csp
 {
     /**
-     *
      * @var \Kenjis\CspNonce
      */
     private $nonce;
@@ -68,6 +67,12 @@ class Csp
 
     public function setHeader()
     {
+        $string = (string) $this;
+
+        if ($string === '') {
+            return;
+        }
+
         if (! $this->reportOnly) {
             $fieldName = 'Content-Security-Policy';
         } else {
@@ -76,7 +81,7 @@ class Csp
 
         // Send CSP header only to browsers which supports nonce-source
         if ($this->nonce->getNonce() !== Nonce::UNSUPPORTED_BROWSER_NONCE) {
-            header($fieldName . ': ' . $this);
+            header($fieldName . ': ' . $string);
         }
     }
 
