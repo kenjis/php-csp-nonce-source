@@ -18,7 +18,7 @@ namespace Kenjis\Csp;
 class Csp
 {
     /**
-     * @var \Kenjis\CspNonce
+     * @var \Kenjis\Csp\Nonce
      */
     private $nonce;
 
