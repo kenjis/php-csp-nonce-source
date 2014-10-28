@@ -34,10 +34,16 @@ class CspStaticProxy
         static::$csp->addPolicy('report-uri', '/csp-report.php');
     }
 
-    public static function setHeader()
+    public static function setReportOnly()
     {
         static::createCsp();
-        static::$csp->setHeader();
+        static::$csp->setReportOnly();
+    }
+
+    public static function sendHeader()
+    {
+        static::createCsp();
+        static::$csp->sendHeader();
     }
 
     /**

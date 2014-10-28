@@ -34,14 +34,14 @@ class CspStaticProxyTest extends TestCase
     /**
      * @dataProvider provideSupportedBrowser
      */
-    public function testSetHeader_supportedBrowser($browser)
+    public function testSendHeader_supportedBrowser($browser)
     {
         $_SERVER['HTTP_USER_AGENT'] = $browser;
 
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
 
-        $test = CspStaticProxy::setHeader();
+        $test = CspStaticProxy::sendHeader();
 
         $func->verifyInvoked(
             ["Content-Security-Policy: script-src 'nonce-MTIzNDU2Nzg5MDEyMzQ1Ng=='; report-uri /csp-report.php"]
@@ -59,13 +59,13 @@ class CspStaticProxyTest extends TestCase
     /**
      * @dataProvider provideUnsupportedBrowser
      */
-    public function testSetHeader_unsupportedBrowser($browser)
+    public function testSendHeader_unsupportedBrowser($browser)
     {
         $_SERVER['HTTP_USER_AGENT'] = $browser;
 
         $func = test::func(__NAMESPACE__, 'header', '');
 
-        $test = CspStaticProxy::setHeader();
+        $test = CspStaticProxy::sendHeader();
 
         $func->verifyNeverInvoked();
     }

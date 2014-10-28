@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/bootstrap.php';
-Csp::setHeader();
+Csp::sendHeader();
 ?>
 <!DOCTYPE html>
 <html lang="en">

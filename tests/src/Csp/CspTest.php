@@ -78,17 +78,17 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testSetHeader_emptyHeader()
+    public function testSendHeader_emptyHeader()
     {
         $func = test::func(__NAMESPACE__, 'header', '');
 
         $this->createCspWithSupportedBrowser();
 
-        $test = $this->csp->setHeader();
+        $test = $this->csp->sendHeader();
         $func->verifyNeverInvoked();
     }
 
-    public function testSetHeader_reportOnly()
+    public function testSendHeader_reportOnly()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
@@ -97,7 +97,7 @@ class CspTest extends TestCase
         $this->createCsp($userAgent);
         $this->csp->setReportOnly();
 
-        $test = $this->csp->setHeader();
+        $test = $this->csp->sendHeader();
         $func->verifyInvoked(
             ["Content-Security-Policy-Report-Only: script-src 'nonce-MTIzNDU2Nzg5MDEyMzQ1Ng=='; report-uri /csp-report.php"]
         );
@@ -106,14 +106,14 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideSupportedBrowser
      */
-    public function testSetHeader_supportedBrowser($userAgent)
+    public function testSendHeader_supportedBrowser($userAgent)
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
 
         $this->createCsp($userAgent);
 
-        $test = $this->csp->setHeader();
+        $test = $this->csp->sendHeader();
         $func->verifyInvoked(
             ["Content-Security-Policy: script-src 'nonce-MTIzNDU2Nzg5MDEyMzQ1Ng=='; report-uri /csp-report.php"]
         );
@@ -130,13 +130,13 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideUnsupportedBrowser
      */
-    public function testSetHeader_unsupportedBrowser($userAgent)
+    public function testSendHeader_unsupportedBrowser($userAgent)
     {
         $func = test::func(__NAMESPACE__, 'header', '');
 
         $this->createCsp($userAgent);
 
-        $test = $this->csp->setHeader();
+        $test = $this->csp->sendHeader();
         $func->verifyNeverInvoked();
     }
 

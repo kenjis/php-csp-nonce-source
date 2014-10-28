@@ -65,7 +65,7 @@ class Csp
         $this->reportOnly = true;
     }
 
-    public function setHeader()
+    public function sendHeader()
     {
         $string = (string) $this;
 

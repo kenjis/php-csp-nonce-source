@@ -23,7 +23,7 @@ $ composer install
 ~~~php
 <?php
 require __DIR__ . '/bootstrap.php';
-Csp::setHeader();
+Csp::sendHeader();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +44,24 @@ Csp::setHeader();
 </body>
 </html>
 ~~~
+
+### Add other polices
+
+~~~php
+require __DIR__ . '/bootstrap.php';
+Csp::addPolicy('default-src', 'self');
+Csp::sendHeader();
+~~~
+
+### Report Only
+
+~~~php
+require __DIR__ . '/bootstrap.php';
+Csp::setReportOnly();
+Csp::sendHeader();
+~~~
+
+See `csp-report.log` file.
 
 ## License
 
