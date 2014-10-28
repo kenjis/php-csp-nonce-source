@@ -4,30 +4,30 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "90badc3026def76b561375dcb9dd1dc2",
+    "hash": "dff9719219c703a4021149acab6ca6fe",
     "packages": [
         {
             "name": "woothee/woothee",
-            "version": "v0.4.2",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woothee/woothee-php.git",
-                "reference": "21ab031ac52630dd4bc95d5d8349a116c93e7aca"
+                "reference": "1c8d5781ceac2d17d3c50982a6cd21555135e9cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woothee/woothee-php/zipball/21ab031ac52630dd4bc95d5d8349a116c93e7aca",
-                "reference": "21ab031ac52630dd4bc95d5d8349a116c93e7aca",
+                "url": "https://api.github.com/repos/woothee/woothee-php/zipball/1c8d5781ceac2d17d3c50982a6cd21555135e9cf",
+                "reference": "1c8d5781ceac2d17d3c50982a6cd21555135e9cf",
                 "shasum": ""
             },
             "require": {
                 "php": ">= 5.3.3"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "0.4.*",
-                "phpunit/phpunit": "4.1.*",
-                "satooshi/php-coveralls": "dev-master",
-                "symfony/yaml": "2.4.*"
+                "fabpot/php-cs-fixer": ">=0.4.0",
+                "phpunit/phpunit": ">=4.1.0",
+                "satooshi/php-coveralls": ">=0.6.0",
+                "symfony/yaml": ">=2.4.0"
             },
             "type": "library",
             "autoload": {
@@ -42,8 +42,7 @@
             "authors": [
                 {
                     "name": "Yuya Takeyama",
-                    "email": "sign.of.the.wolf.pentagram@gmail.com",
-                    "homepage": "http://yuyat.jp"
+                    "email": "sign.of.the.wolf.pentagram@gmail.com"
                 }
             ],
             "description": "Cross-language UserAgent classifier library, PHP implementation",
@@ -51,7 +50,7 @@
                 "user agent",
                 "useragent"
             ],
-            "time": "2014-07-12 03:19:16"
+            "time": "2014-10-26 17:05:46"
         }
     ],
     "packages-dev": [

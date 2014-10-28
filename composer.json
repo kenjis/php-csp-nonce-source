@@ -12,7 +12,7 @@
     "require": {
         "php": ">=5.4.0",
         "ext-openssl": "*",
-        "woothee/woothee": "0.4.*"
+        "woothee/woothee": "1.0.*"
     },
     "require-dev": {
         "codeception/aspect-mock": "0.5.*"
