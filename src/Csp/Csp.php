@@ -12,14 +12,23 @@ namespace Kenjis\Csp;
 
 class Csp
 {
-    public static $report_uri = '/csp-report.php';
+    public $report_uri = '/csp-report.php';
 
-    protected static $nonce;
+    private $brower;
+    private $nonce;
 
-    protected static function generateNonce()
+    /**
+     * @param \Kenjis\Csp\Browser $browser
+     */
+    public function __construct(Browser $browser)
     {
-        if (! Browser::supportNonceSource()) {
-            static::$nonce = 'dummy';
+        $this->browser = $browser;
+    }
+
+    private function generateNonce()
+    {
+        if (! $this->browser->supportNonceSource()) {
+            $this->nonce = 'dummy';
             return;
         }
 
@@ -35,22 +44,22 @@ class Csp
             throw new Exception('Can\'t use openssl_random_pseudo_bytes');
         }
 
-        static::$nonce = base64_encode($bytes);
+        $this->nonce = base64_encode($bytes);
     }
 
-    public static function setHeader()
+    public function setHeader()
     {
-        if (static::$nonce === null) {
-            static::generateNonce();
+        if ($this->nonce === null) {
+            $this->generateNonce();
         }
 
         $header = '';
 
-        if (Browser::supportNonceSource()) {
-            $header = "script-src 'nonce-" . static::$nonce . "'";
+        if ($this->browser->supportNonceSource()) {
+            $header = "script-src 'nonce-" . $this->nonce . "'";
 
-            if (static::$report_uri) {
-                $header .= '; report-uri ' . static::$report_uri;
+            if ($this->report_uri) {
+                $header .= '; report-uri ' . $this->report_uri;
             }
         }
 
@@ -62,17 +71,12 @@ class Csp
     /**
      * @return string
      */
-    public static function getNonce()
+    public function getNonce()
     {
-        if (static::$nonce === null) {
-            static::generateNonce();
+        if ($this->nonce === null) {
+            $this->generateNonce();
         }
 
-        return static::$nonce;
-    }
-
-    public static function resetNonce()
-    {
-        static::$nonce = null;
+        return $this->nonce;
     }
 }

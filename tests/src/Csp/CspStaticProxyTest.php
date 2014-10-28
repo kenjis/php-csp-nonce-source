@@ -4,23 +4,20 @@ namespace Kenjis\Csp;
 
 use AspectMock\Test as test;
 
-class CspTest extends TestCase
+class CspStaticProxyTest extends TestCase
 {
-    public function createCsp($userAgent)
+    public function setUp()
     {
-        $browserDetector = new Browser\WootheeAdapter($userAgent);
-        $browser = new Browser($browserDetector);
-        $this->csp = new Csp($browser);
+        CspStaticProxy::resetCsp();
     }
 
     public function testGetNonce_supportedBrowser()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
 
-        $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0';
-        $this->createCsp($userAgent);
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:33.0) Gecko/20100101 Firefox/33.0';
 
-        $test = $this->csp->getNonce();
+        $test = CspStaticProxy::getNonce();
         $expected = 'MTIzNDU2Nzg5MDEyMzQ1Ng==';
         $this->assertEquals($expected, $test);
     }
@@ -29,10 +26,7 @@ class CspTest extends TestCase
     {
         test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => false]);
 
-        $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10) AppleWebKit/600.1.25 (KHTML, like Gecko) Version/8.0 Safari/600.1.25';
-        $this->createCsp($userAgent);
-
-        $test = $this->csp->getNonce();
+        $test = CspStaticProxy::getNonce();
         $expected = 'dummy';
         $this->assertEquals($expected, $test);
     }
@@ -40,14 +34,15 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideSupportedBrowser
      */
-    public function testSetHeader_supportedBrowser($userAgent)
+    public function testSetHeader_supportedBrowser($browser)
     {
+        $_SERVER['HTTP_USER_AGENT'] = $browser;
+
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
 
-        $this->createCsp($userAgent);
+        $test = CspStaticProxy::setHeader();
 
-        $test = $this->csp->setHeader();
         $func->verifyInvoked(
             ["Content-Security-Policy: script-src 'nonce-MTIzNDU2Nzg5MDEyMzQ1Ng=='; report-uri /csp-report.php"]
         );
@@ -64,13 +59,14 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideUnsupportedBrowser
      */
-    public function testSetHeader_unsupportedBrowser($userAgent)
+    public function testSetHeader_unsupportedBrowser($browser)
     {
+        $_SERVER['HTTP_USER_AGENT'] = $browser;
+
         $func = test::func(__NAMESPACE__, 'header', '');
 
-        $this->createCsp($userAgent);
+        $test = CspStaticProxy::setHeader();
 
-        $test = $this->csp->setHeader();
         $func->verifyNeverInvoked();
     }
 

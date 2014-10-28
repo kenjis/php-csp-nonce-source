@@ -10,39 +10,42 @@
 
 namespace Kenjis\Csp;
 
+use Kenjis\Csp\Browser\AdapterInterface;
+
 class Browser
 {
-    public static $browserDetectorAdapter = 'WootheeAdapter';
+    private $browserDetector;
 
-    protected static $browserDetector;
-
-    protected static $supportedBrowserList = [
+    private $supportedBrowserList = [
         // name => version
         'Firefox' => 31,    // https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
         'Chrome'  => 37,    // At least Chrome 37 supports CSP nonce-source
     ];
 
-    protected static function createBrowserDetector()
+    /**
+     * @param \Kenjis\Csp\Browser\AdapterInterface $browserDetector
+     */
+    public function __construct(AdapterInterface $browserDetector)
     {
-        $className = __NAMESPACE__ . '\\Browser\\' . static::$browserDetectorAdapter;
-        static::$browserDetector = new $className;
+        $this->browserDetector = $browserDetector;
     }
 
     /**
-     * Does Browser support CSP nonce-source or not?
+     * Does browser support CSP nonce-source or not?
      *
      * @return boolean
      */
-    public static function supportNonceSource()
+    public function supportNonceSource()
     {
-        static::createBrowserDetector();
-        $name = static::$browserDetector->getName();
-        $version = static::$browserDetector->getVersion();
+        $name = $this->browserDetector->getName();
+        $version = $this->browserDetector->getVersion();
 
-        if (isset(static::$supportedBrowserList[$name])) {
-            if ($version >= static::$supportedBrowserList[$name]) {
-                return true;
-            }
+        if (! isset($this->supportedBrowserList[$name])) {
+            return false;
+        }
+
+        if ($version >= $this->supportedBrowserList[$name]) {
+            return true;
         }
 
         return false;

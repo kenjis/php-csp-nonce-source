@@ -12,14 +12,17 @@ namespace Kenjis\Csp\Browser;
 
 use Woothee\Classifier;
 
-class WootheeAdapter
+class WootheeAdapter implements AdapterInterface
 {
     private $browser = [];
 
-    public function __construct()
+    /**
+     * @param string $userAgent user agent string
+     */
+    public function __construct($userAgent)
     {
         $classifier = new Classifier;
-        $this->browser = $classifier->parse($_SERVER['HTTP_USER_AGENT']);;
+        $this->browser = $classifier->parse($userAgent);;
     }
 
     /**
