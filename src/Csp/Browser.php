@@ -14,8 +14,16 @@ use Kenjis\Csp\Browser\AdapterInterface;
 
 class Browser
 {
+    /**
+     * @var \Kenjis\Csp\Browser\AdapterInterface
+     */
     private $browserDetector;
 
+    /**
+     * List of browsers and versions which support CSP nonce-source
+     *
+     * @var array
+     */
     private $supportedBrowserList = [
         // name => version
         'Firefox' => 31,    // https://www.mozilla.org/en-US/mobile/31.0/releasenotes/
