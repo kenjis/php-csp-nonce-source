@@ -40,15 +40,11 @@ class Nonce
         }
 
         $length = 16;
-        $bytes = '';
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            $usable = true;
-            $bytes = openssl_random_pseudo_bytes($length, $usable);
-            if ($usable === false) {
-                // weak
-            }
-        } else {
-            throw new Exception('Can\'t use openssl_random_pseudo_bytes');
+        $usable = true;
+        $bytes = openssl_random_pseudo_bytes($length, $usable);
+        if ($usable === false) {
+            // weak
+            // @TODO do something?
         }
 
         $this->nonce = base64_encode($bytes);
