@@ -15,6 +15,9 @@ class CspStaticProxy
     public static $browserDetectorAdapter = 'Woothee';
     public static $report_uri = '/csp-report.php';
 
+    /**
+     * @var \Kenjis\Csp\Csp
+     */
     protected static $csp;
 
     protected static function createCsp()
