@@ -12,7 +12,7 @@ namespace Kenjis\Csp;
 
 class CspStaticProxy
 {
-    public static $browserDetectorAdapter = 'WootheeAdapter';
+    public static $browserDetectorAdapter = 'Woothee';
     public static $report_uri = '/csp-report.php';
 
     protected static $csp;

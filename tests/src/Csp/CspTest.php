@@ -8,7 +8,7 @@ class CspTest extends TestCase
 {
     public function createCsp($userAgent)
     {
-        $browserDetector = new Browser\WootheeAdapter($userAgent);
+        $browserDetector = new Browser\Woothee($userAgent);
         $browser = new Browser($browserDetector);
         $this->csp = new Csp($browser);
     }

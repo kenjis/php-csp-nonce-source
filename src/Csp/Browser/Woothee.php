@@ -12,7 +12,7 @@ namespace Kenjis\Csp\Browser;
 
 use Woothee\Classifier;
 
-class WootheeAdapter implements AdapterInterface
+class Woothee implements AdapterInterface
 {
     private $browser = [];
 
