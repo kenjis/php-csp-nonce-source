@@ -11,7 +11,7 @@ class CspStaticProxyTest extends TestCase
         CspStaticProxy::resetCsp();
     }
 
-    public function testGetNonce_supportedBrowser()
+    public function test_getNonce_supportedBrowser()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
 
@@ -22,7 +22,7 @@ class CspStaticProxyTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testGetNonce_unsupportedBrowser()
+    public function test_getNonce_unsupportedBrowser()
     {
         test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => false]);
 
@@ -34,7 +34,7 @@ class CspStaticProxyTest extends TestCase
     /**
      * @dataProvider provideSupportedBrowser
      */
-    public function testSendHeader_supportedBrowser($browser)
+    public function test_sendHeader_supportedBrowser($browser)
     {
         $_SERVER['HTTP_USER_AGENT'] = $browser;
 
@@ -59,7 +59,7 @@ class CspStaticProxyTest extends TestCase
     /**
      * @dataProvider provideUnsupportedBrowser
      */
-    public function testSendHeader_unsupportedBrowser($browser)
+    public function test_sendHeader_unsupportedBrowser($browser)
     {
         $_SERVER['HTTP_USER_AGENT'] = $browser;
 

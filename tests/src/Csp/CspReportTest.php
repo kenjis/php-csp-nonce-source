@@ -11,7 +11,7 @@ class CspReportTest extends TestCase
         $this->obj = new CspReport('dummy');
     }
 
-    public function testProcess()
+    public function test_process()
     {
         test::func(__NAMESPACE__, 'getallheaders', ["Host" => "localhost:8000"]);
         test::func(__NAMESPACE__, 'date', '2014-10-26 05:55:43');

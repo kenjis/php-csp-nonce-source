@@ -25,7 +25,7 @@ class CspTest extends TestCase
         $this->csp = new Csp($nonce);
     }
 
-    public function testAddPolicy_oneDirective()
+    public function test_addPolicy_oneDirective()
     {
         $this->createCspWithSupportedBrowser();
         $this->csp->addPolicy('connect-src', 'example.com');
@@ -35,7 +35,7 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testAddPolicy_keywordsWithQuotation()
+    public function test_addPolicy_keywordsWithQuotation()
     {
         $this->createCspWithSupportedBrowser();
         $this->csp->addPolicy('default-src', 'self');
@@ -45,7 +45,7 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testAddPolicy_twoDirectives()
+    public function test_addPolicy_twoDirectives()
     {
         $this->createCspWithSupportedBrowser();
         $this->csp->addPolicy('default-src', 'self');
@@ -56,7 +56,7 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testAddPolicy_twoValues()
+    public function test_addPolicy_twoValues()
     {
         $this->createCspWithSupportedBrowser();
         $this->csp->addPolicy('default-src', 'https:');
@@ -67,7 +67,7 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testAddPolicy_duplicatedValues()
+    public function test_addPolicy_duplicatedValues()
     {
         $this->createCspWithSupportedBrowser();
         $this->csp->addPolicy('default-src', 'self');
@@ -78,7 +78,7 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testSendHeader_emptyHeader()
+    public function test_sendHeader_emptyHeader()
     {
         $func = test::func(__NAMESPACE__, 'header', '');
 
@@ -88,7 +88,7 @@ class CspTest extends TestCase
         $func->verifyNeverInvoked();
     }
 
-    public function testSendHeader_reportOnly()
+    public function test_sendHeader_reportOnly()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
@@ -106,7 +106,7 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideSupportedBrowser
      */
-    public function testSendHeader_supportedBrowser($userAgent)
+    public function test_sendHeader_supportedBrowser($userAgent)
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $func = test::func(__NAMESPACE__, 'header', '');
@@ -130,7 +130,7 @@ class CspTest extends TestCase
     /**
      * @dataProvider provideUnsupportedBrowser
      */
-    public function testSendHeader_unsupportedBrowser($userAgent)
+    public function test_sendHeader_unsupportedBrowser($userAgent)
     {
         $func = test::func(__NAMESPACE__, 'header', '');
 

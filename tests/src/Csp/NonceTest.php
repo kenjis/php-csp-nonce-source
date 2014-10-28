@@ -6,7 +6,7 @@ use AspectMock\Test as test;
 
 class NonceTest extends TestCase
 {
-    public function testGetNonce_supportedBrowser()
+    public function test_getNonce_supportedBrowser()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $browser = test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => true])->make();
@@ -17,7 +17,7 @@ class NonceTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testGetNonce_unsupportedBrowser()
+    public function test_getNonce_unsupportedBrowser()
     {
         test::func(__NAMESPACE__, 'openssl_random_pseudo_bytes', '1234567890123456');
         $browser = test::double(__NAMESPACE__ . '\Browser', ['supportNonceSource' => false])->make();
