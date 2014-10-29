@@ -61,18 +61,20 @@ And browse <http://localhost:8000/>.
 
 You can see CSP violation report in `csp-report.log` file.
 
-### Add other polices
+### (Optional) Add other polices
 
 ~~~php
 require __DIR__ . '/bootstrap.php';
 Csp::addPolicy('default-src', 'self');
+Csp::addPolicy('default-src', 'http://example.com');
 Csp::sendHeader();
 ~~~
 
-### Report Only
+### (Optional) Report Only
 
 ~~~php
 require __DIR__ . '/bootstrap.php';
+Csp::addPolicy('default-src', 'self');
 Csp::setReportOnly();
 Csp::sendHeader();
 ~~~
