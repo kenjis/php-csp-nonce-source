@@ -1,5 +1,5 @@
 <?php
-header("Content-Security-Policy: script-src 'unsafe-inline' 'nonce-sXXD/nluT6AqhuVwL0IJqA=='");
+header("Content-Security-Policy: script-src 'unsafe-inline' 'nonce-sXXD/nluT6AqhuVwL0IJqA=='; report-uri /csp-report.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
