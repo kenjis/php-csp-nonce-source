@@ -24,7 +24,7 @@ $ cd php-csp-nonce-source
 $ composer install
 ~~~
 
-## How to use
+## Usage
 
 ~~~php
 <?php
