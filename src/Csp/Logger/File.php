@@ -10,7 +10,7 @@
 
 namespace Kenjis\Csp\Logger;
 
-class File
+class File implements LoggerInterface
 {
     /**
      * @var string
@@ -26,11 +26,15 @@ class File
     }
 
     /**
-     * @param string $level log level, but not used
-     * @param string $message
+     * @param \stdClass report object
      */
-    public function log($level, $message)
+    public function log(\stdClass $report)
     {
-        file_put_contents($this->logfile, $message . "\n", LOCK_EX | FILE_APPEND);
+        $data = json_encode(
+            $report,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+        );
+
+        file_put_contents($this->logfile, $data . "\n", LOCK_EX | FILE_APPEND);
     }
 }

@@ -12,13 +12,22 @@ namespace Kenjis\Csp;
 
 class CspReport
 {
+    /**
+     * @var \Kenjis\Csp\Logger\LoggerInterface
+     */
     private $logger;
 
-    public function __construct($logger)
+    /**
+     * @param \Kenjis\Csp\Logger\LoggerInterface $logger
+     */
+    public function __construct(Logger\LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
+    /**
+     * @param string $post CSP violation report, JSON string
+     */
     public function process($post)
     {
         $report = json_decode($post);
@@ -30,12 +39,7 @@ class CspReport
                 $report->headers[$name] = $value;
             }
 
-            $data = json_encode(
-                $report,
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-            );
-
-            $this->logger->log('info', $data);
+            $this->logger->log($report);
         }
     }
 }
