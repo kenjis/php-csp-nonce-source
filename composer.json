@@ -15,7 +15,8 @@
         "woothee/woothee": "1.0.*"
     },
     "require-dev": {
-        "codeception/aspect-mock": "0.5.*"
+        "codeception/aspect-mock": "0.5.*",
+        "phpunit/phpunit": "4.3.*"
     },
     "autoload": {
         "psr-4": {

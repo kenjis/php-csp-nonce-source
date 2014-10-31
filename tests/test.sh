@@ -1,3 +1,3 @@
 #!/bin/sh
 
-phpunit --debug --coverage-html ./coverage $@
+../vendor/bin/phpunit --debug --coverage-html ./coverage $@
