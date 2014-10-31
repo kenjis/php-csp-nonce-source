@@ -26,6 +26,12 @@ $ composer install
 
 ## Usage
 
+All you have to call is only `Csp::sendHeader()` and `Csp::getNonce()`.
+
+`Csp::sendHeader()` sends CSP header.
+
+`Csp::getNonce()` returns nonce value.
+
 ~~~php
 <?php
 require __DIR__ . '/bootstrap.php';
@@ -63,16 +69,22 @@ You can see CSP violation report in `csp-report.log` file.
 
 ### (Optional) Add other polices
 
+You can add other polices using `Csp::addPolicy()`.
+
 ~~~php
+<?php
 require __DIR__ . '/bootstrap.php';
 Csp::addPolicy('default-src', 'self');
-Csp::addPolicy('default-src', 'http://example.com');
+Csp::addPolicy('img-src', 'img.example.com');
 Csp::sendHeader();
 ~~~
 
 ### (Optional) Report Only
 
+You can set Report Only Mode using `Csp::setReportOnly()`.
+
 ~~~php
+<?php
 require __DIR__ . '/bootstrap.php';
 Csp::addPolicy('default-src', 'self');
 Csp::setReportOnly();
