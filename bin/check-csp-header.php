@@ -9,7 +9,7 @@
  */
 
 if ($argc !== 2) {
-    echo 'Get CSP header of a web page' . PHP_EOL . PHP_EOL;
+    echo 'Check CSP header of a web page' . PHP_EOL . PHP_EOL;
     echo 'Usage:' . PHP_EOL;
     echo ' php ' . $argv[0] . ' <url>' . PHP_EOL;
     exit;
