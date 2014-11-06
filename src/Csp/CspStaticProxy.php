@@ -12,7 +12,7 @@ namespace Kenjis\Csp;
 
 class CspStaticProxy
 {
-    public static $browserDetector = 'Woothee';
+    public static $browserDetector = 'CrossjoinBrowscap';
 
     /**
      * @var \Kenjis\Csp\Csp

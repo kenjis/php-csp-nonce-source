@@ -10,22 +10,23 @@
 
 namespace Kenjis\Csp\Browser;
 
-use Woothee\Classifier;
-
 /**
- * Browser Detector using woothee-php
+ * Browser Detector using Crossjoin\Browscap
  */
-class Woothee implements AdapterInterface
+class CrossjoinBrowscap implements AdapterInterface
 {
-    private $browser = [];
+    /**
+     * @var stdClass
+     */
+    private $browser;
 
     /**
      * @param string $userAgent user agent string
      */
     public function __construct($userAgent)
     {
-        $classifier = new Classifier;
-        $this->browser = $classifier->parse($userAgent);;
+        $browscap = new \Crossjoin\Browscap\Browscap();
+        $this->browser = $browscap->getBrowser($userAgent)->getData();
     }
 
     /**
@@ -33,7 +34,7 @@ class Woothee implements AdapterInterface
      */
     public function getName()
     {
-        return $this->browser['name'];
+        return $this->browser->browser;
     }
 
     /**
@@ -41,7 +42,6 @@ class Woothee implements AdapterInterface
      */
     public function getVersion()
     {
-        $tmp = explode('.', $this->browser['version']);
-        return (int) $tmp[0];
+        return (int) $this->browser->version;
     }
 }

@@ -12,7 +12,8 @@
     "require": {
         "php": ">=5.4.0",
         "ext-openssl": "*",
-        "woothee/woothee": "1.0.*"
+        "woothee/woothee": "1.0.*",
+        "crossjoin/browscap": "dev-master"
     },
     "require-dev": {
         "codeception/aspect-mock": "0.5.*",
